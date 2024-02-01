@@ -1,5 +1,6 @@
-package com.ezequielbolzi.AssignmentSumbission.domain;
+package com.ezequielbolzi.AssignmentSumbission.repository;
 
+import com.ezequielbolzi.AssignmentSumbission.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

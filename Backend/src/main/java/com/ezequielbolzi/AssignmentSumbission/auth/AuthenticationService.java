@@ -1,9 +1,8 @@
 package com.ezequielbolzi.AssignmentSumbission.auth;
 
 import com.ezequielbolzi.AssignmentSumbission.config.JwtService;
-import com.ezequielbolzi.AssignmentSumbission.domain.Authority;
 import com.ezequielbolzi.AssignmentSumbission.domain.User;
-import com.ezequielbolzi.AssignmentSumbission.domain.UserRepository;
+import com.ezequielbolzi.AssignmentSumbission.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -1,7 +1,7 @@
 package com.ezequielbolzi.AssignmentSumbission.service;
 
 import com.ezequielbolzi.AssignmentSumbission.domain.User;
-import com.ezequielbolzi.AssignmentSumbission.domain.UserRepository;
+import com.ezequielbolzi.AssignmentSumbission.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;

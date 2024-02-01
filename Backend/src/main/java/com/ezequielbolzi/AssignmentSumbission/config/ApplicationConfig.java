@@ -1,7 +1,7 @@
 package com.ezequielbolzi.AssignmentSumbission.config;
 
 import com.ezequielbolzi.AssignmentSumbission.domain.User;
-import com.ezequielbolzi.AssignmentSumbission.domain.UserRepository;
+import com.ezequielbolzi.AssignmentSumbission.repository.UserRepository;
 import com.ezequielbolzi.AssignmentSumbission.service.UserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

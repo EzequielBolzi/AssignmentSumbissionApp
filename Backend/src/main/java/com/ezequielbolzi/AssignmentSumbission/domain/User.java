@@ -1,5 +1,6 @@
 package com.ezequielbolzi.AssignmentSumbission.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -25,8 +26,15 @@ public class User implements UserDetails {
     private Long id;
     private LocalDate cohortStartDate;
     private String username;
+    @JsonIgnore
     private String password;
-
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    @JsonIgnore
+    private List<Authority> authorities = new ArrayList<>();
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities(){
+        return authorities;
+    }
 
     public Long getId() {
         return id;
@@ -57,13 +65,6 @@ public class User implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities(){
-        List<GrantedAuthority> roles = new ArrayList<>();
-        roles.add(new Authority("ROLE_STUDENT"));
-        return roles;
     }
 
     @Override

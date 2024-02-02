@@ -10,7 +10,7 @@ const Dashboard = () => {
     const [assignments, setAssignments] = useState(null);
     
     useEffect(()=> {
-        fetch("api/assignments",{
+        fetch("/api/assignments",{
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${jwt}`,

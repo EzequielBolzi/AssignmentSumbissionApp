@@ -19,9 +19,8 @@ public class AssignmentService {
 
     public Assignment save(User user){
         Assignment assignment = new Assignment();
-        assignment.setStatus("Needs to be Sumbited");
+        assignment.setStatus("Needs to be Sumbitted");
         assignment.setUser(user);
-
         return assignmentRepo.save(assignment);
     }
 
@@ -32,4 +31,7 @@ public class AssignmentService {
         return assignmentRepo.findById(assignmentId);
     }
 
+    public Assignment save(Assignment assignment) {
+        return assignmentRepo.save(assignment);
+    }
 }

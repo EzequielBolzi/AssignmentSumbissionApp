@@ -1,10 +1,11 @@
-package com.ezequielbolzi.AssignmentSumbission.auth;
+package com.ezequielbolzi.AssignmentSumbission.web;
 
 import java.util.Optional;
 import java.util.Set;
 
 import com.ezequielbolzi.AssignmentSumbission.domain.Assignment;
 import com.ezequielbolzi.AssignmentSumbission.domain.User;
+import com.ezequielbolzi.AssignmentSumbission.dto.AssignmentResponseDto;
 import com.ezequielbolzi.AssignmentSumbission.service.AssignmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class AssignmentController {
     @GetMapping("{assignmentId}")
     public ResponseEntity<?> getAssignments(@PathVariable Long assignmentId, @AuthenticationPrincipal User user){
         Optional<Assignment> assignmentOptional = assignmentService.findById(assignmentId);
-        return ResponseEntity.ok(assignmentOptional.orElse(new Assignment()));
+        return ResponseEntity.ok( new AssignmentResponseDto(assignmentOptional.orElse(new Assignment())));
     }
 
     @PutMapping("{assignmentId}")

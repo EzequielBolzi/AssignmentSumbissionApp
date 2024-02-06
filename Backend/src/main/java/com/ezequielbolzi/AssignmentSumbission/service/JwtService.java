@@ -1,10 +1,12 @@
 package com.ezequielbolzi.AssignmentSumbission.service;
 
+import com.ezequielbolzi.AssignmentSumbission.domain.Authority;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class JwtService {
@@ -22,8 +25,13 @@ public class JwtService {
         return extractClaim(token, Claims::getSubject);
     }
 
-    public  String generateToken(UserDetails userDetails){
-        return generateToken(new HashMap<>(), userDetails);
+    public String generateToken(UserDetails userDetails) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("authorities", userDetails.getAuthorities()
+                .stream()
+                .map(auth -> auth.getAuthority())
+                .collect(Collectors.toList()));
+        return generateToken(claims, userDetails);
     }
     public  String generateToken(
             Map<String, Object> extraClaims,
@@ -34,7 +42,7 @@ public class JwtService {
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis()+ 24 * 60 * 60 * 1000 ))
+                .setExpiration(new Date(System.currentTimeMillis()+ 30 * 24 * 60 * 60 ))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -42,7 +50,7 @@ public class JwtService {
 
     public boolean isTokenValid(String token, UserDetails userDetails){
         final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+        return (userDetails!= null && username.equals(userDetails.getUsername())) && !isTokenExpired(token);
 
     }
 

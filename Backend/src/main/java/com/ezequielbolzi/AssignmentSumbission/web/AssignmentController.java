@@ -1,4 +1,4 @@
-package com.ezequielbolzi.AssignmentSumbission.auth;
+package com.ezequielbolzi.AssignmentSumbission.web;
 
 import java.util.Optional;
 import java.util.Set;

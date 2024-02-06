@@ -7,6 +7,10 @@ import jakarta.persistence.*;
 public class Assignment {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+
+
+    private String name;
     private String status;
     private String githubUrl;
     private String branch;
@@ -70,5 +74,12 @@ public class Assignment {
         this.user = user;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
 }

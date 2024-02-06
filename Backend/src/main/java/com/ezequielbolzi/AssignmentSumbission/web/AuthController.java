@@ -1,8 +1,10 @@
-package com.ezequielbolzi.AssignmentSumbission.auth;
+package com.ezequielbolzi.AssignmentSumbission.web;
 
+import com.ezequielbolzi.AssignmentSumbission.auth.BadCredentialsException;
 import com.ezequielbolzi.AssignmentSumbission.domain.User;
 import com.ezequielbolzi.AssignmentSumbission.dto.AuthCredentialsRequest;
 import com.ezequielbolzi.AssignmentSumbission.service.JwtService;
+import io.jsonwebtoken.ExpiredJwtException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -12,11 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -30,8 +29,8 @@ public class AuthController {
     private JwtService jwtService;
 
     @PostMapping("login")
-    public ResponseEntity<?> login (@RequestBody AuthCredentialsRequest request){
-        try{
+    public ResponseEntity<?> login(@RequestBody AuthCredentialsRequest request) {
+        try {
             Authentication authenticate = authenticationManager
                     .authenticate(
                             new UsernamePasswordAuthenticationToken(
@@ -46,8 +45,19 @@ public class AuthController {
                             jwtService.generateToken(user)
                     )
                     .body(user);
-        } catch (BadCredentialsException ex){
+        } catch (BadCredentialsException ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+    }
+
+    @GetMapping("/validate")
+    public ResponseEntity<?> validateToken(@RequestParam String token, @AuthenticationPrincipal User user) {
+        try {
+            Boolean isValidToken = jwtService.isTokenValid(token, user);
+            return ResponseEntity.ok(isValidToken);
+        } catch (ExpiredJwtException e) {
+            return ResponseEntity.ok(false);
+        }
+
     }
 }

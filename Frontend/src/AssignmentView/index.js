@@ -63,6 +63,16 @@ const AssignmentView = () => {
     },[assignmentEnums]);
     return (
         <Container className="mt-5">
+            <Row>
+                <Col>
+                <span onClick={() => {
+                    setJwt(null);
+                    window.location.href="/login";
+                }}>
+
+                </span>
+                </Col>
+            </Row>
             <Row className="d-flex align-items-center">
                 <Col>
                 {assignment.number ?  <h1>Assignment {assignment.number }  </h1> : <></>}

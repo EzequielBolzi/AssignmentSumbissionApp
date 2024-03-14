@@ -1,0 +1,36 @@
+.assignment-wrapper{
+    border: 1px dashed lightgray;
+    padding: 2em;
+    border-radius: 1em;
+    margin-top: 2em;
+}
+
+.assignment-wrapper-tittle{
+    margin-bottom:1em !important;
+    margin-top:-2em !important;
+    width:min-content !important;
+    white-space:nowrap !important;
+    background-color:white !important;
+}
+.comment-bubble{
+    background-color: #eeeeee;
+    border-radius: 1em;
+    padding: 1em;
+    margin: 1em 0em;
+}
+.edit-button {
+    cursor: pointer;
+    color: blue;
+    margin-right: 10px; /* Add some space between the buttons */
+   }
+   
+.delete-button {
+    cursor: pointer;
+    color: red;
+   }
+.posted-date {
+    padding-top: 10px;
+    font-size: 11px;
+    color: #330;
+    opacity: 80%;
+  }

@@ -8,9 +8,6 @@ public class Assignment {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String status;
-
-
-
     private Integer number;
     private String githubUrl;
     private String branch;
@@ -18,7 +15,8 @@ public class Assignment {
     @ManyToOne(optional = false)
     private User user;
     private User assignedTo;
-    // TODO: create private user assignedTo;
+    @ManyToOne
+    private User codeReviewer;
     public Long getId() {
         return id;
     }
@@ -81,5 +79,13 @@ public class Assignment {
     public void setNumber(Integer number) {
         this.number = number;
     }
+    public User getCodeReviewer() {
+        return codeReviewer;
+    }
+
+    public void setCodeReviewer(User codeReviewer) {
+        this.codeReviewer = codeReviewer;
+    }
+
 
 }

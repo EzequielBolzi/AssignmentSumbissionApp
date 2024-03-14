@@ -3,12 +3,13 @@ package com.ezequielbolzi.AssignmentSumbission.enums;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
-public enum AssignmentStatusEnum {
+public enum     AssignmentStatusEnum {
     PENDING_SUMBISSION("Pending Sumbission",1),
     SUMBITTED("Sumbitted",2),
     IN_REVIEW("In Review",3),
     NEEDS_UPDATE("Needs Update",4),
-    COMPLETED("Completed",5);
+    COMPLETED("Completed",5),
+    RESUMBITTED("Resumbitted",6);
 
 
 

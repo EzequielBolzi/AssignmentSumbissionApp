@@ -36,6 +36,8 @@ public class User implements UserDetails {
         return authorities;
     }
 
+    private String name;
+
     public Long getId() {
         return id;
     }
@@ -92,7 +94,13 @@ public class User implements UserDetails {
         return true;
     }
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
 
 }

@@ -1,16 +1,20 @@
-import React, { useState } from "react";
-import { useLocalState } from "../util/useLocalStore"
+import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Row, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import {useUser } from "../UserProvider";
 
 const Login = () => {
+  const user = useUser();
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [jwt, setJwt] = useLocalState("","jwt");
 
+  useEffect(()=>{
+    if (user.jwt) window.location.href ="/dashboard"; 
 
+  }, [user]);
   function sendLoginRequest() {
+  
     const reqBody = {
       username: username,
       password: password,
@@ -28,8 +32,7 @@ const Login = () => {
         else return Promise.reject("Invalid login attempt");
       })
       .then(([body, headers]) => {
-        setJwt(headers.get("authorization"));
-        window.location.href = "dashboard";
+        user.setJwt(headers.get("authorization"))
       })
       .catch((message) => {
         alert(message);
@@ -74,8 +77,6 @@ const Login = () => {
               </div>
             </Col>
           </Row>
- 
-          <></>
         <Row className="justify-content-center">
           <Col
             md="8"
@@ -95,7 +96,7 @@ const Login = () => {
               type="button"
               size="lg"
               onClick={() => {
-                navigate("/");
+                window.location.href ="/";
               }}
             >
               Exit
@@ -106,5 +107,6 @@ const Login = () => {
     </>
   );
 };
+
 
 export default Login;

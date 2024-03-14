@@ -1,20 +1,22 @@
-import React, { useEffect } from 'react';
+import{ useEffect } from 'react';
 import { useState } from 'react';
 import { useLocalState } from '../util/useLocalStore';
-import { Link, Navigate } from 'react-router-dom'; // Import Link from react-router-dom
-import { Badge, Button, Card, Col, Row } from 'react-bootstrap';
-
+import {Button, Card, Col, Row } from 'react-bootstrap';
+import StatusBadge from '../StatusBadge';
+import {navigate, useNavigate} from "react-router-dom"; //Chequear en algun momento
+import { useUser } from '../UserProvider';
 
 
 const Dashboard = () => {
-    const [jwt, setJwt] = useLocalState("", "jwt");
+    const navigate = useNavigate();
+    const user = useUser();
     const [assignments, setAssignments] = useState(null);
     
     useEffect(()=> {
         fetch("/api/assignments",{
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${jwt}`,
+                Authorization: `Bearer ${user.jwt}`,
             },
             method: "GET",
         })
@@ -24,14 +26,15 @@ const Dashboard = () => {
         .then((assignmentsData) => {
             setAssignments(assignmentsData);
         });
-
-    }, [jwt]);
+        if (!user.jwt)window.location.href = "/login";
+        
+    }, [user.jwt]);
 
     function createAssignment(){    
         fetch("api/assignments", {
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${jwt}`,
+                Authorization: `Bearer ${user.jwt}`,
             },
             method: "POST",
         })
@@ -40,6 +43,7 @@ const Dashboard = () => {
         })
         .then((assignment) => {
             window.location.href = `/assignments/${assignment.id}`;
+            
         });
     }
     return (
@@ -50,8 +54,7 @@ const Dashboard = () => {
                 className='d-flex justify-content-end'
                     style={{cursor:"pointer"}}
                     onClick={() => {
-                    setJwt(null);
-                    window.location.href="/login";
+                    user.setJwt(null);
                 }}>
                     Logout
                 </div>
@@ -68,16 +71,7 @@ const Dashboard = () => {
                         <Card.Body className='d-flex flex-column justify-content-around'>
                             <Card.Title>Assignment # {assignment.number}</Card.Title> 
                             <div className='d-flex align-items-start'>
-                                <Badge
-                                    pill
-                                    bg="info"
-                                    style={{
-                                        fontSize:"1em",
-                                    }}
-                                    >
-                                    {assignment.status}
-
-                                </Badge>
+                                <StatusBadge text={assignment.status}/>
                             </div>
 
                             <Card.Text>
@@ -88,8 +82,8 @@ const Dashboard = () => {
                             <Button 
                                 variant='secondary'
                                 onClick={()=>{
-                                window.location.href=`/assignments/${assignment.id}`
-                            }}>
+                                    window.location.href = `/assignments/${assignment.id}`;
+                                }}>
                                 Edit
                             </Button>
                             

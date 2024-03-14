@@ -4,6 +4,7 @@ package com.ezequielbolzi.AssignmentSumbission.service;
 import com.ezequielbolzi.AssignmentSumbission.domain.Assignment;
 import com.ezequielbolzi.AssignmentSumbission.domain.User;
 import com.ezequielbolzi.AssignmentSumbission.enums.AssignmentStatusEnum;
+import com.ezequielbolzi.AssignmentSumbission.enums.AuthorityEnum;
 import com.ezequielbolzi.AssignmentSumbission.repository.AssignmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,7 +47,16 @@ public class AssignmentService {
     }
 
     public Set<Assignment> findByUser (User user){
-        return assignmentRepo.findByUser(user);
+        // code_reviewer role
+        boolean hasCodeReviewerRole = user.getAuthorities()
+                .stream()
+                .filter(auth-> AuthorityEnum.CODE_REVIEWER.name().equals(auth.getAuthority()))
+                .count() > 0;
+        if (hasCodeReviewerRole){
+            return assignmentRepo.findByCodeReviewer(user);
+        }else {
+            return assignmentRepo.findByUser(user);
+        }
     }
     public Optional<Assignment> findById(Long assignmentId){
         return assignmentRepo.findById(assignmentId);

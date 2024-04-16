@@ -1,16 +1,24 @@
 # Assignment sumbission & Review App.
-***
-This project allow  to log in as a student user who can send your github exercises and as teacher who can give feedback on the exercises.
-The users have a section to talk into a chat.
+My second project is an AssignmentSumbision App. Upon logging in, students are greeted with a dashboard that serves as their personal command center. It highlights key information such as:
+Upcoming assignments and their due dates
+The status of assignments currently under review, including whether they require adjustments
+A straightforward method to submit or resubmit assignments for review
+When it's time to submit an assignment, students are prompted to provide:
 
+The GitHub URL to their public repository
+The branch they wish to be reviewed
+Once submitted, the assignment's status transitions from "Pending" to "Submitted," indicating that it's ready for review.
 
-## Technologies
-***
-A list of technologies used within the project:
-* Java: Version JDK 17.
-* Spring Boot: Version 3.2.1
-* Maven: Version 3.9.6
-* Javascript
-* ReactJs: version 18.2.0.
-* MySQL: Version 5.7
+For code reviewers, a separate dashboard awaits. Here, they can claim submitted assignments, marking the transition from "Submitted" to "In Review." This action signals that the review process has begun, allowing reviewers to dive into the code and provide feedback.
+Also the code reviewer can mark the task in a different status: "Need Update". The Code Reviewer and the Student can talk in a Real Time chat in each task.
 
+Tech stack:
+✔️ Java
+✔️ Maven
+✔️ Spring Boot, Spring Web, Spring Data JPA, Spring Security
+✔️ Javascript
+✔️ Html
+✔️ Css
+✔️ ReactJS
+✔️ MySQL
+✔️ Postman

@@ -12,7 +12,7 @@ Once submitted, the assignment's status transitions from "Pending" to "Submitted
 For code reviewers, a separate dashboard awaits. Here, they can claim submitted assignments, marking the transition from "Submitted" to "In Review." This action signals that the review process has begun, allowing reviewers to dive into the code and provide feedback.
 Also the code reviewer can mark the task in a different status: "Need Update". The Code Reviewer and the Student can talk in a Real Time chat in each task.
 
-Tech stack:
+## Technologies Used
 ✔️ Java
 ✔️ Maven
 ✔️ Spring Boot, Spring Web, Spring Data JPA, Spring Security
